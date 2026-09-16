@@ -16,6 +16,9 @@ class JobApplication(models.Model):
         ('rejected'  ,'Rejected'),
     ]
 )
+
+    def __str__(self):
+        return self.company_name
     
 
    

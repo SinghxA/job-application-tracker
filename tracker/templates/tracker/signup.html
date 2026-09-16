@@ -1,0 +1,191 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+</head>
+<body>
+    <h2>Signup</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+</html> -->
+
+
+<!-- CSRF (Cross-Site Request Forgery) ek security attack hai jisme koi malicious website aapke naam pe fake request bhej sakti hai. {% csrf_token %} Django ka security feature hai — ye ek hidden, unique code generate karta hai har form mein, jisse Django verify karta hai ki request genuinely aapki website se aayi hai, kisi hacker se nahi.
+
+Important: Agar ye line miss kar di, to form submit karte waqt error aayega ("CSRF verification failed") — isliye Django ke har POST form mein ye line hamesha zaroori hai. -->
+
+
+<!-- Explanation: Yaad kariye — views.py se humne {'form': form} bheja tha. Yahan {{ form.as_p }} us poore form ko automatically render kar deta hai — username field, password field, sab kuch <p> tags mein wrap karke (isliye naam as_p hai — "as paragraphs"). Humein khud se har field ka HTML likhne ki zaroorat nahi padi! -->
+
+
+
+<html>
+<head>
+    <title>Signup</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fbf7f7, #fcf9f9);
+        }
+
+        .signup-box {
+            width: 380px;
+            background: #ffffff;
+            padding: 20px 35px;
+            border-radius: 2px;
+            box-shadow: 0 8px 25px rgba(205, 200, 200, 0.18);
+        }
+
+        h2 {
+            margin: 0 0 25px 0;
+            font-size: 22px;
+            color: #333;
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #3f6df6;
+            margin-top: 5px;
+        }
+
+        form p {
+            margin: 0 0 14px 0;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input:focus {
+            border-color: #3f6df6;
+        }
+
+        ul {
+            margin: 7px 0 0 0;
+            padding-left: 18px;
+            color: #777;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .helptext {
+            display: block;
+            color: #888;
+            font-size: 11px;
+            line-height: 1.4;
+            margin-top: 5px;
+        }
+
+        .errorlist {
+            color: #e53935;
+            font-size: 11px;
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+
+        button {
+            width: 100%;
+            height: 43px;
+            border: none;
+            border-radius: 5px;
+            background: #416ff5;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #315de0;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #416ff5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+ /* Hide Django's extra instructions */
+    .helptext,
+    form ul {
+        display: none;
+    }
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-box">
+
+        <h2>Registration</h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                Register Now
+            </button>
+
+        </form>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">Login now</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
