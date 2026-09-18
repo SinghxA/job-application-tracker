@@ -63,3 +63,9 @@ def edit_application(request,id):
     return render (request,'tracker/edit.html',{'form':form})
 
 
+@login_required
+def delete_application(request,id):
+    application=JobApplication.objects.get(user=request.user,id=id)
+    application.delete()
+    return redirect ('application_list')
+
