@@ -39,3 +39,27 @@ def add_application(request):
     else:
         form = JobApplicationForm()
     return render(request, 'tracker/add.html', {'form': form})
+
+
+@login_required
+def edit_application(request,id):
+    application=JobApplication.objects.get(user=request.user,id=id)
+    if request.method == "POST":
+      form = JobApplicationForm(request.POST,instance=application)
+    #   User ka naya data existing application ke saath form mein daalo.
+    
+      if  form.is_valid():
+    
+          form.save()
+
+          return redirect ('application_list')
+
+    else:
+
+         form = JobApplicationForm(
+            instance=application
+        )
+
+    return render (request,'tracker/edit.html',{'form':form})
+
+

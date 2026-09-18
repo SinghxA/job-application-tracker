@@ -24,7 +24,7 @@
         h2 {
             font-size: 24px;
             font-weight: bold;
-            color: #333;
+            color: #000000;
             margin: 0;
         }
 
@@ -40,12 +40,12 @@
         }
 
         .btn-primary {
-            background: #3f6df6;
+            background: black;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #315de0;
+            background: #2d2e2f;
         }
 
         .btn-secondary {
@@ -83,8 +83,8 @@
         }
 
         .company-name {
-            color: #3f6df6;
-            font-weight: 600;
+            color: #111f48;
+            font-weight: 610;
         }
 
         .status-badge {
@@ -163,7 +163,7 @@
                 <td><span class="status-badge status-{{ app.status }}">{{ app.status }}</span></td>
                 <td>
                     <div class="action-btns">
-                        <a href="#" class="btn-sm">Edit</a>
+                        <a href="{% url 'edit_application' app.id %}" class="btn-sm">Edit</a>
                         <a href="#" class="btn-sm btn-delete">Delete</a>
                     </div>
                 </td>
