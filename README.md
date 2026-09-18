@@ -1,5 +1,5 @@
 # JobTrack – Job Application Tracker
-
+JAT built with Python,Django.
 JobTrack is a Django-based web application that helps users manage and track their job applications in one place.
 
 ## Features
