@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 <head>
     <title>My Applications</title>
     <style>
@@ -136,9 +136,13 @@
 
     <div class="top-bar">
         <h2>My Job Applications</h2>
+        
         <div class="actions-top">
-            <a href="{% url 'add_application' %}" class="btn btn-primary">+ Add Application</a>
-            <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+                <a href="{% url 'add_application' %}" class="btn btn-primary">+ Add Application</a>
+                <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-secondary">Logout</button>
+    </form>
         </div>
     </div>
 
@@ -177,4 +181,417 @@
     </table>
 
 </body>
+</html> -->
+
+
+
+<html>
+<head>
+    <title>My Applications</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            padding: 30px 40px;
+            color: #333;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            margin: 0;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: black;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2d2e2f;
+        }
+
+        .btn-secondary {
+            background: #f1f1f1;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .actions-top {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Hamburger Button */
+        .menu-btn {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 40px;
+            height: 38px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .menu-btn:hover {
+            background: #f5f5f5;
+        }
+
+        /* Side Navigation */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.12);
+            padding: 25px;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .side-menu h3 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 20px;
+            color: #111;
+        }
+
+        .side-menu a,
+        .side-menu button {
+            display: block;
+            width: 100%;
+            padding: 12px 10px;
+            margin-bottom: 8px;
+            text-align: left;
+            background: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .side-menu a:hover,
+        .side-menu button:hover {
+            background: #f5f5f5;
+        }
+
+        .delete-account {
+            color: #e53935 !important;
+            margin-top: 15px !important;
+        }
+
+        .delete-account:hover {
+            background: #fff5f5 !important;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        /* Dark overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            text-align: left;
+            font-size: 13px;
+            color: #555;
+            padding: 12px 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        tbody td {
+            padding: 14px 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .company-name {
+            color: #111f48;
+            font-weight: 610;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .status-applied {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-interview {
+            background: #fff8e1;
+            color: #f9a825;
+        }
+
+        .status-offer {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-rejected {
+            background: #fdecea;
+            color: #e53935;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-sm:hover {
+            background: #eee;
+        }
+
+        .btn-delete {
+            color: #e53935;
+            border-color: #f5c6cb;
+        }
+
+        .empty-row td {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+
+        <h2>My Job Applications</h2>
+
+        <div class="actions-top">
+
+            
+
+            <!-- Hamburger -->
+            <button class="menu-btn" onclick="openMenu()">
+                ☰
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- Side Menu -->
+
+    <div class="side-menu" id="sideMenu">
+
+        <span class="close-menu" onclick="closeMenu()">×</span>
+
+        <h3>Menu</h3>
+
+        <a href="{% url 'application_list' %}">
+            Applications
+        </a>
+
+        <a href="{% url 'add_application' %}">
+            Add Application
+        </a>
+
+        <a href="{% url 'dashboard' %}">
+            Dashboard
+        </a>
+
+        <!-- Logout -->
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+
+            <button type="submit">
+                Logout
+            </button>
+        </form>
+
+
+        <!-- Delete Account -->
+
+        <form method="POST"
+              action="{% url 'delete_account' %}"
+              onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+
+            {% csrf_token %}
+
+            <button type="submit" class="delete-account">
+                Delete Account
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Overlay -->
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Date Applied</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for app in applications %}
+
+            <tr>
+
+                <td>{{ forloop.counter }}</td>
+
+                <td class="company-name">
+                    {{ app.company_name }}
+                </td>
+
+                <td>
+                    {{ app.role }}
+                </td>
+
+                <td>
+                    {{ app.date_applied }}
+                </td>
+
+                <td>
+                    <span class="status-badge status-{{ app.status }}">
+                        {{ app.status }}
+                    </span>
+                </td>
+
+                <td>
+
+                    <div class="action-btns">
+
+                        <a href="{% url 'edit_application' app.id %}"
+                           class="btn-sm">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'delete_application' app.id %}"
+                           class="btn-sm btn-delete">
+                            Delete
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr class="empty-row">
+                <td colspan="6">
+                    No applications yet — click "+ Add Application" to get started.
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+
+        function openMenu() {
+            document.getElementById("sideMenu").classList.add("active");
+            document.getElementById("overlay").classList.add("active");
+        }
+
+        function closeMenu() {
+            document.getElementById("sideMenu").classList.remove("active");
+            document.getElementById("overlay").classList.remove("active");
+        }
+
+    </script>
+
+</body>
 </html>
+

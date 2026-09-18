@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .back-btn {
+            background: black;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        
+        .cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.card {
+    background: white;
+    padding: 15px 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    margin: 0 0 8px;
+    color: #555;
+    font-size: 14px;
+}
+
+.number {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.chart-box {
+    background: white;
+    margin-top: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+    height: 300px;
+}
+
+.chart-box h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+       
+
+        @media (max-width: 700px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+        <h1>My Dashboard</h1>
+
+        <a href="{% url 'application_list' %}" class="back-btn">
+            ← Applications
+        </a>
+    </div>
+
+    <!-- Number Cards -->
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Applications</h3>
+            <p class="number">{{ total_applications }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Applied</h3>
+            <p class="number">{{ applied }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Interview</h3>
+            <p class="number">{{ interview }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Offer</h3>
+            <p class="number">{{ offer }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Rejected</h3>
+            <p class="number">{{ rejected }}</p>
+        </div>
+
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-box">
+        <h2>Application Status</h2>
+
+        <canvas id="statusChart"></canvas>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('statusChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+
+        data: {
+            labels: ['Applied', 'Interview', 'Offer', 'Rejected'],
+
+            datasets: [{
+                label: 'Applications',
+                data: [
+                    {{ applied }},
+                    {{ interview }},
+                    {{ offer }},
+                    {{ rejected }}
+                ]
+            }]
+        },
+
+      options: {
+    responsive: true,
+    maintainAspectRatio: false,
+
+    scales: {
+        y: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1
+            }
+        }
+    }
+}
+    });
+</script>
+
+</body>
+</html>

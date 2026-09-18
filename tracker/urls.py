@@ -15,6 +15,10 @@ urlpatterns=[
 
    path('applications/<int:id>/edit/' ,views.edit_application,name='edit_application'),
 
-   path('applications/<int:id>/delete/',views.delete_application,name='delete_application')
+   path('applications/<int:id>/delete/',views.delete_application,name='delete_application'),
+
+   path('applications/delete_account/',views.delete_account,name='delete_account'),
+
+   path('applications/dashboard/', views.dashboard, name='dashboard')
 ]
 

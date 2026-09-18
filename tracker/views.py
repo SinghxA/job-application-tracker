@@ -69,3 +69,29 @@ def delete_application(request,id):
     application.delete()
     return redirect ('application_list')
 
+@login_required
+def delete_account(request):
+    if request.method == "POST":
+        request.user.delete()
+        return redirect('signup')
+
+@login_required
+def dashboard(request):
+    applications=JobApplication.objects.filter(user=request.user)
+
+    total_applications = applications.count()
+
+    applied = applications.filter(status="applied").count()
+    interview = applications.filter(status="interview").count()
+    offer = applications.filter(status="offer").count()
+    rejected = applications.filter(status="rejected").count()
+
+    context = {
+    'total_applications': total_applications,
+    'applied': applied,
+    'interview': interview,
+    'offer': offer,
+    'rejected': rejected,
+    }
+
+    return render(request, 'tracker/dashboard.html', context)
