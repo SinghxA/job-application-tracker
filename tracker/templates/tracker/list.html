@@ -1,0 +1,180 @@
+<html>
+<head>
+    <title>My Applications</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            padding: 30px 40px;
+            color: #333;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #3f6df6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #315de0;
+        }
+
+        .btn-secondary {
+            background: #f1f1f1;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .actions-top {
+            display: flex;
+            gap: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            text-align: left;
+            font-size: 13px;
+            color: #555;
+            padding: 12px 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        tbody td {
+            padding: 14px 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .company-name {
+            color: #3f6df6;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .status-applied { background: #e3f2fd; color: #1565c0; }
+        .status-interview { background: #fff8e1; color: #f9a825; }
+        .status-offer { background: #e8f5e9; color: #2e7d32; }
+        .status-rejected { background: #fdecea; color: #e53935; }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-sm:hover {
+            background: #eee;
+        }
+
+        .btn-delete {
+            color: #e53935;
+            border-color: #f5c6cb;
+        }
+
+        .empty-row td {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <h2>My Job Applications</h2>
+        <div class="actions-top">
+            <a href="{% url 'add_application' %}" class="btn btn-primary">+ Add Application</a>
+            <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Date Applied</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td class="company-name">{{ app.company_name }}</td>
+                <td>{{ app.role }}</td>
+                <td>{{ app.date_applied }}</td>
+                <td><span class="status-badge status-{{ app.status }}">{{ app.status }}</span></td>
+                <td>
+                    <div class="action-btns">
+                        <a href="#" class="btn-sm">Edit</a>
+                        <a href="#" class="btn-sm btn-delete">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr class="empty-row">
+                <td colspan="6">No applications yet — click "+ Add Application" to get started.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
