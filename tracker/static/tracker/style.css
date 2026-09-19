@@ -13,6 +13,9 @@ body {
     background: #f5f5f5;
 }
 
+
+/* Login Page */
+
 .login-box {
     width: 380px;
     background: white;
@@ -28,33 +31,33 @@ body {
     margin: 0 auto 20px;
 }
 
-h2 {
+.login-box h2 {
     margin: 0 0 25px 0;
     font-size: 22px;
     color: #333;
 }
 
-h2::after {
+.login-box h2::after {
     content: "";
     display: block;
     width: 25px;
     height: 2px;
-    background: #333;
+    background: #fbfcfe;
     margin-top: 5px;
 }
 
-form p {
+.login-box form p {
     margin: 0 0 15px 0;
 }
 
-label {
+.login-box label {
     display: block;
     font-size: 13px;
     color: #555;
     margin-bottom: 6px;
 }
 
-input {
+.login-box input {
     width: 100%;
     height: 40px;
     padding: 0 12px;
@@ -64,11 +67,11 @@ input {
     font-size: 14px;
 }
 
-input:focus {
-    border-color: #416ff5;
+.login-box input:focus {
+    border-color: #f0f1f6;
 }
 
-button {
+.login-box button {
     width: 100%;
     height: 42px;
     border: none;
@@ -81,7 +84,7 @@ button {
     margin-top: 5px;
 }
 
-button:hover {
+.login-box button:hover {
     background: #333;
 }
 
@@ -99,7 +102,7 @@ button:hover {
 }
 
 
-/* sign up  */
+/* Sign Up Page */
 
 .signup-box {
     width: 380px;
@@ -221,6 +224,7 @@ button:hover {
     margin: 0 auto 20px;
 }
 
+
 /* Add Application Page */
 
 .form-page {
@@ -324,7 +328,7 @@ button:hover {
 }
 
 
-/* Mobile */
+/* Mobile - Add Application Page */
 
 @media (max-width: 500px) {
 
@@ -340,9 +344,6 @@ button:hover {
         padding: 25px 20px;
     }
 }
-
-
-/* /////////////////// */
 
 
 /* Mobile - Signup Page */
@@ -377,4 +378,40 @@ button:hover {
         font-size: 12px;
     }
 }
+
+
+/* Mobile - Login Page */
+
+@media (max-width: 500px) {
+
+    .login-box {
+        width: calc(100% - 30px);
+        padding: 20px;
+    }
+
+    .login-box img {
+        width: 100px;
+        margin-bottom: 15px;
+    }
+
+    .login-box h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .login-box input {
+        height: 42px;
+        font-size: 16px;
+    }
+
+    .login-box button {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .signup-link {
+        font-size: 12px;
+    }
+}
+
 
