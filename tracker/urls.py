@@ -1,8 +1,10 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from django.shortcuts import redirect
 
 urlpatterns=[
+    path('', lambda request: redirect('login')),
     path('signup/' , views.signup_view ,name='signup'),
     path('login/' , auth_views.LoginView.as_view(template_name='tracker/login.html',next_page='/applications/') , name = 'login'),
 
