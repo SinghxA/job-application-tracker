@@ -10,13 +10,13 @@
         }
 
         .container {
-            width: 450px;
-            margin: 150px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-        }
-
+        width: 450px;
+        max-width: calc(100% - 30px);
+        margin: 100px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+}
         h2 {
             text-align: center;
         }
@@ -34,6 +34,17 @@
         button:hover {
             background: #333;
         }
+
+        @media (max-width: 500px) {
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+    }
     </style>
 </head>
 

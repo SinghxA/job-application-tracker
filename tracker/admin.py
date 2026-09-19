@@ -12,7 +12,7 @@ from .models import JobApplication
  
 class JobApplicationAdmin(admin.ModelAdmin):
     # Hum admin panel ke appearance/behavior ko customize kar rahe hain.
-    list_display = ('company_name', 'role', 'date_applied', 'job_domain', 'status')
+    list_display = ('company_name', 'role', 'date_applied', 'status')
 
     search_fields = ('company_name', 'role', 'job_domain')
     list_filter = ('status',)

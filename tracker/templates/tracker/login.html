@@ -1,6 +1,7 @@
-
+{% load static %}
 <html>
 <head>
+    
     <title>Login</title>
 
     <style>
@@ -101,8 +102,10 @@
 <body>
 
     <div class="login-box">
+        <img src="{% static 'tracker/logo.png' %}" alt="Job Tracker Logo">
 
         <h2>Login</h2>
+        <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
 
         <form method="POST">
 
