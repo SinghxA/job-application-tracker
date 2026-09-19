@@ -340,3 +340,41 @@ button:hover {
         padding: 25px 20px;
     }
 }
+
+
+/* /////////////////// */
+
+
+/* Mobile - Signup Page */
+
+@media (max-width: 500px) {
+
+    .signup-box {
+        width: calc(100% - 30px);
+        padding: 20px;
+    }
+
+    .signup-box img {
+        width: 100px;
+        margin-bottom: 15px;
+    }
+
+    .signup-box h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .signup-box input {
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .signup-box button {
+        height: 42px;
+    }
+
+    .login-link {
+        font-size: 12px;
+    }
+}
+
